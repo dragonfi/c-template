@@ -1,2 +1,6 @@
+.gitignore
 *~
-*.swp
+*.p
+*.o
+main1
+main2
