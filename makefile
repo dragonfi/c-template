@@ -28,10 +28,10 @@ TGTS := $(shell grep -l -e 'main[ ]*(.*)' $(SRCS) | sed 's/\.c//g' | sort)
 all: $(TGTS) .gitignore
 
 $(TGTS): %: %.o
-	gcc $(LDFLAGS) -o $@ $^
+	$(CC) $(LDFLAGS) -o $@ $^
 
 %.o: %.c
-	gcc $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $<
 
 .PHONY: tidy clean print .gitignore
 
@@ -54,11 +54,11 @@ print:
 	@echo LDFLAGS: $(LDFLAGS)
 
 $(TGTS:%=%.p): %.p: %.c
-	gcc -MM $< | sed 's/\($*\).o[ :]*/\1.o \1.p: /g' > $@
-	gcc -MM $< | sed -e 's/$*\.o[ :]*/$*: /g' -e 's/\.[ch]/\.o/g' >> $@
+	$(CC) -MM $< | sed 's/\($*\).o[ :]*/\1.o \1.p: /g' > $@
+	$(CC) -MM $< | sed -e 's/$*\.o[ :]*/$*: /g' -e 's/\.[ch]/\.o/g' >> $@
 
 %.p: %.c
-	gcc -MM $< | sed 's/\($*\).o[ :]*/\1.o \1.p: /g' > $@
+	$(CC) -MM $< | sed 's/\($*\).o[ :]*/\1.o \1.p: /g' > $@
 
 include $(TGTS:%=%.p)
 include $(SRCS:%.c=%.p)
