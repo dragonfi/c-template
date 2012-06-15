@@ -22,7 +22,7 @@ endif
 SRCS := $(wildcard *.c)
 OBJS := $(SRCS:%.c=%.o)
 
-# targets are c files that have a make function
+# targets are c files that have a main function
 TGTS := $(shell grep -l -e 'main[ ]*(.*)' $(SRCS) | sed 's/\.c//g' | sort)
 
 all: $(TGTS) .gitignore
